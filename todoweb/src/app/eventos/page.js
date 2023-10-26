@@ -1,11 +1,32 @@
 import Navbar from "@/components/NavBar"
-import EventDataRow from "./eventDataRow"
+import EventDataRow from "./EventDataRow"
 
 export default function Eventos() {
-  const events = [
-    {id : 1,
-    name: "Batata",
-    value: 5}
+  const data = [
+    {
+      id: 1,
+      title: "Reunião 1",
+      date: "21-1-2022",
+      status: "Active"
+    },
+    {
+      id: 2,
+      title: "Reunião 2",
+      date: "22-2-2022",
+      status: "Active"
+    },
+    {
+      id: 3,
+      title: "Reunião 3",
+      date: "23-3-2022",
+      status: "Active"
+    },
+    {
+      id: 4,
+      title: "Reunião 4",
+      date: "24-4-2022",
+      status: "Active"
+    }
   ]
   return (
     <>
@@ -15,7 +36,9 @@ export default function Eventos() {
         <h2 className="text-xl text-center">Eventos</h2>
         <div>
           <div id="data" className="pl-24 pr-24">
-            <EventDataRow/>
+              {data.map(evento => {
+                return <EventDataRow evento={evento}/>
+              })}
           </div>
         </div>
       </main>

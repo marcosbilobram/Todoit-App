@@ -10,12 +10,12 @@ export default function Navbar({active}){
               </Link>
             </li>
             <li>
-                <Link ClassName = {active == "eventos" && "text-slate-100"}href="/eventos">
+                <Link className = {active == "eventos" && "text-slate-100"} href="/eventos">
                     Eventos
                 </Link>
             </li>
             <li>
-                <Link ClassName = {active == "numsei" && "text-slate-100"}href="/numsei">
+                <Link className = {active == "numsei" && "text-slate-100"} href="/numsei">
                     Num sei
                 </Link>
             </li>

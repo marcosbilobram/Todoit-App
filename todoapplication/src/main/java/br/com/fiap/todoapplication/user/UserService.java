@@ -69,7 +69,7 @@ public class UserService {
             todoService.changeTodoDone(todoId);
             return true;
         } else {
-            return false;
+            throw new RuntimeException("Error trying to change ToDo done");
         }
     }
 
