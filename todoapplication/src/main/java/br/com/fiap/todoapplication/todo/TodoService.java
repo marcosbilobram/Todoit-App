@@ -3,6 +3,7 @@ package br.com.fiap.todoapplication.todo;
 import br.com.fiap.todoapplication.exception.NoSuchObjectException;
 import br.com.fiap.todoapplication.todo.dto.TodoFindDTO;
 import br.com.fiap.todoapplication.todo.dto.TodoInsertDTO;
+import br.com.fiap.todoapplication.todo.dto.TodoUpdateDTO;
 import br.com.fiap.todoapplication.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    public void updateTodo(TodoInsertDTO todoDTO, Long todoId, Long userId) throws NoSuchObjectException {
+    public void updateTodo(TodoUpdateDTO todoDTO, Long todoId, Long userId) throws NoSuchObjectException {
         if (checkIfUserHasTodo(userId, todoId)){
             var todoInDB = findById(todoId);
             dataUpdater(todoInDB, todoDTO);
@@ -46,9 +47,13 @@ public class TodoService {
         }
     }
 
-    public void dataUpdater(Todo todoInDb, TodoInsertDTO todoDTO){
-        todoInDb.setName(todoDTO.getName());
-        todoInDb.setDescription(todoDTO.getDescription());
+    public void dataUpdater(Todo todoInDb, TodoUpdateDTO todoDTO){
+        if (todoDTO.getName() != null)
+            todoInDb.setName(todoDTO.getName());
+
+        if (todoDTO.getDescription() != null)
+            todoInDb.setDescription(todoDTO.getDescription());
+
         todoRepository.save(todoInDb);
     }
 
@@ -68,6 +73,7 @@ public class TodoService {
         }else {
             todo.setDone(true);
         }
+        todoRepository.save(todo);
     }
 
     public TodoFindDTO parseTodoTFDTO(Todo todo) {
@@ -76,6 +82,7 @@ public class TodoService {
 
     public boolean checkIfUserHasTodo(Long userId, Long todoId) throws NoSuchObjectException {
         List<Todo> userTodos = todoRepository.findAllByUserId(userId);
+        boolean hasTodo = false;
 
         if (userTodos.isEmpty())
             throw new NoSuchObjectException("User with id " + userId + "doesn't have any ToDo registered");
@@ -83,9 +90,16 @@ public class TodoService {
         findById(todoId);
 
         for(Todo td : userTodos){
-            if(td.getId().equals(todoId))
-                return true;
+            if (td.getId().equals(todoId)) {
+                hasTodo = true;
+                break;
+            }
         }
-        return false;
+        if (hasTodo){
+            return true;
+        } else {
+            throw new NoSuchObjectException("User with id " + userId +
+                    " doesn't have ToDo with ID " + todoId + " registered");
+        }
     }
 }

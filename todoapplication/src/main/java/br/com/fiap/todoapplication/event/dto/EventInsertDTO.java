@@ -18,10 +18,9 @@ public class EventInsertDTO {
     @NotNull @NotBlank @Size(min = 1, max = 20)
     private String title;
 
-    @CreationTimestamp
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull
-    private Calendar date;
+    private String date;
 
     @Pattern(regexp = "^(Active|Cancelled)$", message = "O status deve ser 'Active' ou 'Cancelled'")
     private String status;

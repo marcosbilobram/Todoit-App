@@ -33,8 +33,12 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Event> events;
 
-    public void addTask(Todo todo){
+    public void addTask(Todo todo) {
         this.todos.add(todo);
+    }
+
+    public void addEvent(Event event) {
+        this.events.add(event);
     }
 
     public User(UserInsertDTO dto){

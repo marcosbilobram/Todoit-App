@@ -1,10 +1,10 @@
+package br.com.fiap.todoapplication.event;
 
-import br.com.fiap.todoapplication.event.Event;
-import br.com.fiap.todoapplication.event.EventRepository;
 import br.com.fiap.todoapplication.event.dto.EventFindDTO;
-import br.com.fiap.todoapplication.event.dto.EventInsertDTO;
+import br.com.fiap.todoapplication.event.dto.EventUpdateDTO;
 import br.com.fiap.todoapplication.exception.NoSuchObjectException;
 import br.com.fiap.todoapplication.user.User;
+import br.com.fiap.todoapplication.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,29 +37,32 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    public void updateEvent(EventInsertDTO eventDTO, Long EventId, Long userId) throws NoSuchObjectException {
-        if (checkIfUserHasEvent(userId, EventId)){
-            var eventInDB = findById(EventId);
+    public void updateEvent(EventUpdateDTO eventDTO, Long eventId, Long userId) throws Exception {
+        if (checkIfUserHasEvent(userId, eventId)){
+            var eventInDB = findById(eventId);
             dataUpdater(eventInDB, eventDTO);
         } else {
             throw new NoSuchObjectException("User with id " + userId +
-                    "doesn't have any Event registered with ID " + EventId);
+                    "doesn't have any Event registered with ID " + eventId);
         }
     }
 
-    public void dataUpdater(Event eventInDb, EventInsertDTO eventDTO){
+    public void dataUpdater(Event eventInDb, EventUpdateDTO eventDTO) throws Exception {
+        if(eventDTO.getTitle() != null)
+            eventInDb.setTitle(eventDTO.getTitle());
 
-        eventInDb.set(eventDTO.getName());
-        eventInDb.setDescription(EventDTO.getDescription());
+        if(eventDTO.getDate() != null)
+            eventInDb.setDate(DataUtils.parseStringToCalendar(eventDTO.getDate()));
+
         eventRepository.save(eventInDb);
     }
 
-    public void delete(Long userId, Long EventId) throws NoSuchObjectException {
-        if (checkIfUserHasEvent(userId, EventId)) {
-            eventRepository.deleteById(EventId);
+    public void delete(Long userId, Long eventId) throws NoSuchObjectException {
+        if (checkIfUserHasEvent(userId, eventId)) {
+            eventRepository.deleteById(eventId);
         } else {
             throw new NoSuchObjectException("User with id " + userId +
-                    "doesn't have any Event registered with ID " + EventId);
+                    "doesn't have any Event registered with ID " + eventId);
         }
     }
 
@@ -79,6 +82,7 @@ public class EventService {
 
     public boolean checkIfUserHasEvent(Long userId, Long eventId) throws NoSuchObjectException {
         List<Event> userEvents = eventRepository.findAllByUserId(userId);
+        boolean hasEvent = false;
 
         if (userEvents.isEmpty())
             throw new NoSuchObjectException("User with id " + userId + "doesn't have any Event registered");
@@ -86,10 +90,18 @@ public class EventService {
         findById(eventId);
 
         for(Event event : userEvents){
-            if(event.getId().equals(eventId))
-                return true;
+            if(event.getId().equals(eventId)){
+                hasEvent = true;
+                break;
+            }
+
         }
-        return false;
+        if (hasEvent){
+            return true;
+        } else {
+            throw new NoSuchObjectException("User with id " + userId +
+                    " doesn't have event with ID " + eventId + " registered");
+        }
     }
     
 }

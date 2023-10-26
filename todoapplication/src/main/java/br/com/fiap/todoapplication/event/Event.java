@@ -1,6 +1,8 @@
 package br.com.fiap.todoapplication.event;
 
+import br.com.fiap.todoapplication.event.dto.EventInsertDTO;
 import br.com.fiap.todoapplication.user.User;
+import br.com.fiap.todoapplication.utils.DataUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -38,5 +40,11 @@ public class Event {
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
+
+    public Event(EventInsertDTO eventDTO) throws Exception {
+        this.title = eventDTO.getTitle();
+        this.date = DataUtils.parseStringToCalendar(eventDTO.getDate());
+        this.status = "Active";
+    }
 
 }
