@@ -20,7 +20,7 @@ import java.util.Calendar;
 @Data
 @Table(name = "tb_event")
 @SequenceGenerator(name = "event", sequenceName = "SQ_TB_EVENT", allocationSize = 1)
-@Check(constraints = "status in ('Active', 'Cancelled')")
+@Check(constraints = "evnt_status in ('Active', 'Cancelled')")
 public class Event {
 
     @Id
