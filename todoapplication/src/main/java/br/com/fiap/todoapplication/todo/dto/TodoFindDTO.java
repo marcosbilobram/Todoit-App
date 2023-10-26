@@ -12,4 +12,6 @@ public class TodoFindDTO {
 
     private String description;
 
+    private Boolean done;
+
 }

@@ -2,6 +2,7 @@ package br.com.fiap.todoapplication.user;
 
 import br.com.fiap.todoapplication.event.Event;
 import br.com.fiap.todoapplication.todo.Todo;
+import br.com.fiap.todoapplication.user.dto.UserInsertDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +19,13 @@ import java.util.List;
 public class User {
 
     @Id
-    Long id;
-    String name;
-    String avatarURL;
+    @GeneratedValue(generator = "user", strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    @Column(name = "user_name", nullable = false, length = 45)
+    private String name;
+
+    private String avatarURL;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Todo> todos;
@@ -30,5 +35,10 @@ public class User {
 
     public void addTask(Todo todo){
         this.todos.add(todo);
+    }
+
+    public User(UserInsertDTO dto){
+        this.name = dto.getName();
+        this.avatarURL = dto.getAvatarURL();
     }
 }

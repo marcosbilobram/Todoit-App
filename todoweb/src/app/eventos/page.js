@@ -3,7 +3,9 @@ import EventDataRow from "./eventDataRow"
 
 export default function Eventos() {
   const events = [
-    {}
+    {id : 1,
+    name: "Batata",
+    value: 5}
   ]
   return (
     <>

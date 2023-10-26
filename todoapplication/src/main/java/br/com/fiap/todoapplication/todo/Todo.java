@@ -5,6 +5,7 @@ import br.com.fiap.todoapplication.todo.dto.TodoInsertDTO;
 import br.com.fiap.todoapplication.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,9 @@ public class Todo {
 
     @Column(name = "todo_desc", nullable = false)
     private String description;
+
+    @Builder.Default
+    private Boolean done = false;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;

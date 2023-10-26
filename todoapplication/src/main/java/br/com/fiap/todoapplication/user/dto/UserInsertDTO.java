@@ -1,5 +1,6 @@
-package br.com.fiap.todoapplication.todo.dto;
+package br.com.fiap.todoapplication.user.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -8,11 +9,11 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class TodoInsertDTO {
+public class UserInsertDTO {
 
-    @NotNull @NotBlank @Size(min = 1, max = 25)
+    @NotNull @NotBlank @Size(min = 5, max = 45)
     private String name;
 
-    @Size(min = 1, max = 25)
-    private String description;
+    private String avatarURL;
+
 }

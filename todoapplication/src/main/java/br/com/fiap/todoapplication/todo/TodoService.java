@@ -17,14 +17,16 @@ public class TodoService {
     TodoRepository todoRepository;
 
     public List<TodoFindDTO> findAllByUserId(Long userId){
-        return todoRepository.findAllByUserId(userId).stream().map(this::parseTodoTFDTO).collect(Collectors.toList());
+        return todoRepository.findAllByUserId(userId)
+                .stream().map(this::parseTodoTFDTO).collect(Collectors.toList());
     }
 
     public Todo findById(Long id) throws NoSuchObjectException {
         var todo = todoRepository.findById(id);
 
         if(todo.isEmpty())
-            throw new NoSuchObjectException("Object with id".concat(String.valueOf(id)).concat(" Not found"));
+            throw new NoSuchObjectException("Object with id".
+                                            concat(String.valueOf(id)).concat(" Not found"));
 
         return todo.get();
     }
@@ -34,9 +36,14 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    public void updateTodo(TodoInsertDTO todoDTO, Long id) throws NoSuchObjectException {
-        var todoInDB = findById(id);
-        dataUpdater(todoInDB, todoDTO);
+    public void updateTodo(TodoInsertDTO todoDTO, Long todoId, Long userId) throws NoSuchObjectException {
+        if (checkIfUserHasTodo(userId, todoId)){
+            var todoInDB = findById(todoId);
+            dataUpdater(todoInDB, todoDTO);
+        } else {
+            throw new NoSuchObjectException("User with id " + userId +
+                    "doesn't have any ToDo registered with ID " + todoId);
+        }
     }
 
     public void dataUpdater(Todo todoInDb, TodoInsertDTO todoDTO){
@@ -45,8 +52,26 @@ public class TodoService {
         todoRepository.save(todoInDb);
     }
 
+    public void delete(Long userId, Long todoId) throws NoSuchObjectException {
+        if (checkIfUserHasTodo(userId, todoId)) {
+            todoRepository.deleteById(todoId);
+        } else {
+            throw new NoSuchObjectException("User with id " + userId +
+                    "doesn't have any ToDo registered with ID " + todoId);
+        }
+    }
+
+    public void changeTodoDone(Long idTodo) throws NoSuchObjectException {
+        var todo = findById(idTodo);
+        if (todo.getDone()){
+            todo.setDone(false);
+        }else {
+            todo.setDone(true);
+        }
+    }
+
     public TodoFindDTO parseTodoTFDTO(Todo todo) {
-        return new TodoFindDTO(todo.getName(), todo.getDescription());
+        return new TodoFindDTO(todo.getName(), todo.getDescription(), todo.getDone());
     }
 
     public boolean checkIfUserHasTodo(Long userId, Long todoId) throws NoSuchObjectException {
@@ -54,6 +79,8 @@ public class TodoService {
 
         if (userTodos.isEmpty())
             throw new NoSuchObjectException("User with id " + userId + "doesn't have any ToDo registered");
+
+        findById(todoId);
 
         for(Todo td : userTodos){
             if(td.getId().equals(todoId))
