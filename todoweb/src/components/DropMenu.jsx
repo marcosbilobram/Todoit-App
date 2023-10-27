@@ -18,7 +18,7 @@ export default function DropMenu({evento}) {
   };
 
   const handleDelete = () => {
-    destroy(3)
+    destroy(evento.id)
     setAnchorEl(null);
     console.log("Deleted")
   }

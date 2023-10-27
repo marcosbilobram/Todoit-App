@@ -33,20 +33,20 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         userRepository.save(user);
 
-        Todo todo = Todo.builder().id(1L).name("Codar 1")
-                .description("Codar bastante pra terminar o projeto").user(user).build();
+        Todo todo = Todo.builder().id(1L).name("Projeto fns")
+                .description("Terminar o projeto").user(user).build();
 
-        Todo todo2 = Todo.builder().id(2L).name("Codar 2 ")
-                .description("Codar bastante pra terminar o projeto").user(user).build();
+        Todo todo2 = Todo.builder().id(2L).name("Dormir")
+                .description("Dormir 7 horas seguidas").user(user).build();
 
-        Todo todo3 = Todo.builder().id(3L).name("Codar 3")
-                .description("Codar bastante pra terminar o projeto").user(user).build();
+        Todo todo3 = Todo.builder().id(3L).name("Comer")
+                .description("Comer bem").user(user).build();
 
-        Todo todo4 = Todo.builder().id(4L).name("Codar 4")
-                .description("Codar bastante pra terminar o projeto").user(user).build();
+        Todo todo4 = Todo.builder().id(4L).name("Viver")
+                .description("Viver fora dos códigos um pouco").user(user).build();
 
-        Todo todo5 = Todo.builder().id(5L).name("Codar 5")
-                .description("Codar bastante pra terminar o projeto").user(user).build();
+        Todo todo5 = Todo.builder().id(5L).name("Respirar")
+                .description("Respirar").user(user).build();
 
         todoRepository.saveAll(List.of(todo, todo2, todo3, todo4, todo5));
 

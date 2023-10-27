@@ -32,7 +32,7 @@ public class Todo {
     @Builder.Default
     private Boolean done = false;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Todo(TodoInsertDTO todoDTO){

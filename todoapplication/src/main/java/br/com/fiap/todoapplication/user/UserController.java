@@ -50,7 +50,7 @@ public class UserController {
 
     @GetMapping("/{userId}/ToDos")
     public ResponseEntity<List<TodoFindDTO>> findAllUserToDOs(@PathVariable Long userId) {
-        return ResponseEntity.status(HttpStatus.FOUND).body(userService.findAllUserToDos(userId));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAllUserToDos(userId));
     }
 
     @GetMapping("/{userId}/ToDos/{todoId}")
