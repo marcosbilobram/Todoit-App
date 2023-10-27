@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -93,11 +94,11 @@ public class UserController {
 
     @GetMapping("/{userId}/Events")
     public ResponseEntity<List<EventFindDTO>> findAllUserEvents(@PathVariable Long userId) {
-        return ResponseEntity.status(HttpStatus.FOUND).body(userService.findAllEventsByUserId(userId));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAllEventsByUserId(userId));
     }
 
     @GetMapping("/{userId}/Events/{eventId}")
-    public ResponseEntity<EventFindDTO> findUserEventById(@PathVariable Long userId, @PathVariable Long eventId) throws NoSuchObjectException {
+    public ResponseEntity<EventFindDTO> findUserEventById(@PathVariable Long userId, @PathVariable Long eventId) throws NoSuchObjectException, ParseException {
         return ResponseEntity.status(HttpStatus.FOUND).body(userService.findEventById(userId, eventId));
     }
 

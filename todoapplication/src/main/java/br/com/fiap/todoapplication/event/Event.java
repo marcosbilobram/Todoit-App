@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Check;
@@ -15,6 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.util.Calendar;
 
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -30,11 +32,12 @@ public class Event {
     private String title;
 
     @CreationTimestamp
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Calendar date;
 
     @Column(name = "evnt_status", nullable = false, length = 10)
-    private String status;
+    @Builder.Default
+    private String status = "Active";
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

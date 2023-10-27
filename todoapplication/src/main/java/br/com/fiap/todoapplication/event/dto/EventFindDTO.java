@@ -11,7 +11,7 @@ public class EventFindDTO {
 
     private String title;
 
-    private Calendar date;
+    private String date;
 
     private String status;
 

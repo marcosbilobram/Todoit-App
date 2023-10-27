@@ -8,6 +8,7 @@ import br.com.fiap.todoapplication.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,7 +78,9 @@ public class EventService {
     }
 
     public EventFindDTO parseEventEFDTO(Event event) {
-        return new EventFindDTO(event.getTitle(), event.getDate(), event.getStatus());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        var date = sdf.format(event.getDate().getTime());
+        return new EventFindDTO(event.getTitle(), date, event.getStatus());
     }
 
     public boolean checkIfUserHasEvent(Long userId, Long eventId) throws NoSuchObjectException {

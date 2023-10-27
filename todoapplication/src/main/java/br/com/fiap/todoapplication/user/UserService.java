@@ -15,6 +15,7 @@ import br.com.fiap.todoapplication.user.dto.UserInsertDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -93,7 +94,7 @@ public class UserService {
         return eventService.findAllByUserId(userId);
     }
 
-    public EventFindDTO findEventById(Long userId, Long eventId) throws NoSuchObjectException {
+    public EventFindDTO findEventById(Long userId, Long eventId) throws NoSuchObjectException, ParseException {
         if(eventService.checkIfUserHasEvent(userId, eventId)) {
             return eventService.parseEventEFDTO(eventService.findById(eventId));
         }
