@@ -26,12 +26,13 @@ import java.util.Calendar;
 public class Event {
 
     @Id
+    @GeneratedValue(generator = "event", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "evnt_title", length = 25, nullable = false)
     private String title;
 
-    @CreationTimestamp
+    //@CreationTimestamp
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Calendar date;
 

@@ -1,5 +1,6 @@
 package br.com.fiap.todoapplication.utils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.experimental.UtilityClass;
 
 import java.text.ParseException;
@@ -12,17 +13,19 @@ public class DataUtils {
 
     public Calendar parseStringToCalendar(String date) throws Exception {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-            Date data = sdf.parse(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date dateParsed = sdf.parse(date);
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(data);
+            calendar.setTime(dateParsed);
+
+            System.out.println(calendar.getTime());
 
             return calendar;
         }
         catch (ParseException e) {
-            throw new Exception("Error trying parse" + date + "to Calendar entity");
+            e.printStackTrace();
+            throw new Exception("Error trying parse " + date + " to Calendar entity");
         }
     }
 }

@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/Events")
-    public ResponseEntity<List<EventFindDTO>> findAllUserEvents(@PathVariable Long userId) {
+    public ResponseEntity<List<EventFindDTO>> findAllUserEvents(@PathVariable Long userId) throws NoSuchObjectException {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAllEventsByUserId(userId));
     }
 

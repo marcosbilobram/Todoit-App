@@ -90,7 +90,8 @@ public class UserService {
         todoService.delete(userId, todoID);
     }
 
-    public List<EventFindDTO> findAllEventsByUserId(Long userId) {
+    public List<EventFindDTO> findAllEventsByUserId(Long userId) throws NoSuchObjectException {
+        findById(userId);
         return eventService.findAllByUserId(userId);
     }
 
