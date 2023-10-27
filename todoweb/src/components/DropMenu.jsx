@@ -5,8 +5,9 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { ChevronDown } from 'lucide-react';
+import { destroy } from '@/actions/eventos';
 
-export default function DropMenu() {
+export default function DropMenu({evento}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -15,6 +16,12 @@ export default function DropMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleDelete = () => {
+    destroy(3)
+    setAnchorEl(null);
+    console.log("Deleted")
+  }
 
   return (
     <div>
@@ -38,7 +45,7 @@ export default function DropMenu() {
       >
         <MenuItem onClick={handleClose}>Cancelar</MenuItem>
         <MenuItem onClick={handleClose}>Editar</MenuItem>
-        <MenuItem onClick={handleClose}>Apagar</MenuItem>
+        <MenuItem onClick={handleDelete}>Apagar</MenuItem>
       </Menu>
     </div>
   );

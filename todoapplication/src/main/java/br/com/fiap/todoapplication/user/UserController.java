@@ -131,6 +131,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}/Events/{eventId}")
     public ResponseEntity<Void> deleteUserEvent(@PathVariable Long userId, @PathVariable Long eventId) throws NoSuchObjectException {
+        System.out.println("Calling delete operation");
         userService.deleteUserEvent(userId, eventId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

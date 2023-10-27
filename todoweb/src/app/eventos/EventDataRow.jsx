@@ -10,7 +10,7 @@ export default function EventDataRow({evento}) {
       </div>
       <span>{evento.date}</span>
       <div className="text-slate-100">
-        <DropMenu/>
+        <DropMenu evento={evento}/>
       </div>
     </div>
   )

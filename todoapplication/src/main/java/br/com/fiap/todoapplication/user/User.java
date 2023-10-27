@@ -3,6 +3,7 @@ package br.com.fiap.todoapplication.user;
 import br.com.fiap.todoapplication.event.Event;
 import br.com.fiap.todoapplication.todo.Todo;
 import br.com.fiap.todoapplication.user.dto.UserInsertDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +31,11 @@ public class User {
     private String avatarURL;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Todo> todos;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Event> events;
 
     public void addTask(Todo todo) {

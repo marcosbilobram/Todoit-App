@@ -9,6 +9,8 @@ import java.util.Calendar;
 @Data
 public class EventFindDTO {
 
+    private Long id;
+
     private String title;
 
     private String date;

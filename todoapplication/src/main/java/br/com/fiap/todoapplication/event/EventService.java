@@ -80,7 +80,7 @@ public class EventService {
     public EventFindDTO parseEventEFDTO(Event event) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         var date = sdf.format(event.getDate().getTime());
-        return new EventFindDTO(event.getTitle(), date, event.getStatus());
+        return new EventFindDTO(event.getId(), event.getTitle(), date, event.getStatus());
     }
 
     public boolean checkIfUserHasEvent(Long userId, Long eventId) throws NoSuchObjectException {

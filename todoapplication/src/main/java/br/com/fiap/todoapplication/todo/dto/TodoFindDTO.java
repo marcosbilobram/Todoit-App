@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class TodoFindDTO {
 
+    private Long id;
+
     private String name;
 
     private String description;

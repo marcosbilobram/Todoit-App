@@ -68,16 +68,12 @@ public class TodoService {
 
     public void changeTodoDone(Long idTodo) throws NoSuchObjectException {
         var todo = findById(idTodo);
-        if (todo.getDone()){
-            todo.setDone(false);
-        }else {
-            todo.setDone(true);
-        }
+        todo.setDone(!todo.getDone());
         todoRepository.save(todo);
     }
 
     public TodoFindDTO parseTodoTFDTO(Todo todo) {
-        return new TodoFindDTO(todo.getName(), todo.getDescription(), todo.getDone());
+        return new TodoFindDTO(todo.getId(), todo.getName(), todo.getDescription(), todo.getDone());
     }
 
     public boolean checkIfUserHasTodo(Long userId, Long todoId) throws NoSuchObjectException {

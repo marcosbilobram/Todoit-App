@@ -1,5 +1,7 @@
 'use server'
 
+import { revalidatePath } from "next/cache";
+
 export async function create(formData) {
     const url = "http://localhost:8080/user/1/Events/add";
 
@@ -25,14 +27,48 @@ export async function create(formData) {
         },
     };
 
-    fetch(url, options)
-        .then((response) => {
-            if (response.ok) {
-                console.log("Foi registrado")
-                return {ok : "Evento cadastrado com sucesso"}
-            } else {
-                console.log("Não foi registrado")
-                return {error : "Falha ao cadastrar o evento"};
-            }
-        });
+    const resp = await fetch(url, options)
+    if (resp.status !== 201){
+        const json = await resp.json()
+        const mensagens = json.reduce((str, erro) => str += ". " + erro.message, "")
+        return {error: "Erro ao cadastrar" + mensagens}
+    }
+
+    revalidatePath("/eventos")
+    return {ok: "Conta cadastrada com sucesso"}
+}
+
+export async function getAll() {
+    const getAllUrl = "http://localhost:8080/user/1/Events/"
+
+    const options = {
+        method: "GET"
+    }
+
+    const response = await fetch(deleteUrl, options)
+
+    if(!response.ok) {
+        throw new Error("Failed to delete event")
+    }
+
+    revalidatePath("/eventos")
+
+}
+
+export async function destroy(id) {
+    const deleteUrl = "http://localhost:8080/user/1/Events/".concat(id)
+
+    console.log(deleteUrl)
+
+    const options = {
+        method: "DELETE"
+    }
+
+    const response = await fetch(deleteUrl, options)
+
+    if(!response.ok) {
+        throw new Error("Failed to delete event")
+    }
+
+    revalidatePath("/eventos")
 }

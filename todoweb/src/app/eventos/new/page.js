@@ -5,6 +5,7 @@ import TextInput from "@/components/TextInput";
 import Button from "../Button";
 import { create } from "@/actions/eventos";
 import { useState } from "react";
+import { redirect } from 'next/navigation'
 
 export default function CreateEvent() {
     const [message, setMessage] = useState("");
@@ -15,7 +16,7 @@ export default function CreateEvent() {
             setMessage(resp.error)
             return 
         }
-        setMessage("Evento cadastrado com sucesso")
+        redirect("/eventos")
     }
 
     return (
