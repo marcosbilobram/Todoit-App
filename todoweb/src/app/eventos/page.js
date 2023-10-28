@@ -5,7 +5,7 @@ import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 async function getEventos() {
   const url = "http://localhost:8080/user/1/Events"
-  let response = await fetch(url, {next: {revalidate: 3600}});
+  let response = await fetch(url, {next: {revalidate: 0}});
   return response.json()
 }
 

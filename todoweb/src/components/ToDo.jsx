@@ -1,6 +1,6 @@
 "use client"
 
-import { deleteTodo } from '@/actions/toDos';
+import { deleteTodo, updateTodoDone } from '@/actions/toDos';
 import { Checkbox } from '@mui/material';
 import { X } from 'lucide-react';
 
@@ -12,6 +12,20 @@ export default function ToDo({todo}) {
         console.log("Deleted")
       }
 
+    const handleDone = async () => {
+      console.log(todo.id)
+      await updateTodoDone(todo.id)
+      console.log("Upddated")
+    }
+
+    function checkIfItsDone() {
+        if(todo.done === true) {
+          return true
+        } else {
+          return false
+        }
+    }
+
     return (
         <div className="max-w-xs max-h-none rounded overflow-y-auto shadow-2xl bg-white m-10 w-1/3 border border-gray-600">
           <div className="px-6 py-7">
@@ -22,7 +36,7 @@ export default function ToDo({todo}) {
           </div>
           <div className="w-auto items-center flex flex-row px-0 pt-4 justify-between">
             <div>
-            <Checkbox/>
+            <Checkbox onClick={handleDone} checked={checkIfItsDone()}/>
                 <label className="items-center">
                 <span className="ml-0.2 text-gray-700">Done</span>
                 </label>

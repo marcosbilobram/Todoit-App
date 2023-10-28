@@ -23,7 +23,7 @@ public class Todo {
     @Column(name = "todo_id")
     private Long id;
 
-    @Column(name = "todo_name", nullable = false, length = 30)
+    @Column(name = "todo_name", nullable = false, length = 45)
     private String name;
 
     @Column(name = "todo_desc", nullable = false)

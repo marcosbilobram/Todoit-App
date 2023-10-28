@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 public class TodoInsertDTO {
 
-    @NotNull @NotBlank @Size(min = 1, max = 25)
+    @NotNull @NotBlank @Size(min = 1, max = 45)
     private String name;
 
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 75)
     private String description;
 }

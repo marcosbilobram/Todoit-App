@@ -45,7 +45,7 @@ export async function getAll() {
         method: "GET"
     }
 
-    const response = await fetch(getAll, options)
+    const response = await fetch(getAllUrl, options)
 
     if(!response.ok) {
         throw new Error("Failed to delete event")

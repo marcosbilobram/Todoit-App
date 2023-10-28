@@ -56,7 +56,7 @@ public class UserController {
     @GetMapping("/{userId}/ToDos/{todoId}")
     public ResponseEntity<TodoFindDTO> findTodoById(@PathVariable Long userId,
                                                     @PathVariable Long todoId) throws NoSuchObjectException {
-        return ResponseEntity.status(HttpStatus.FOUND).body(userService.findTodoById(userId, todoId));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findTodoById(userId, todoId));
     }
 
     @PutMapping("/{userId}/ToDos/{todoId}/editDone")
