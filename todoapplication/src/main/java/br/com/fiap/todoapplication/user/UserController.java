@@ -62,6 +62,7 @@ public class UserController {
     @PutMapping("/{userId}/ToDos/{todoId}/editDone")
     public ResponseEntity<Void> changeTodoDone(@PathVariable Long userId,
                                                @PathVariable Long todoId) throws NoSuchObjectException {
+        System.out.println("Change done operation called");
         boolean changed = userService.changeTodoDone(userId, todoId);
 
         if (changed){
