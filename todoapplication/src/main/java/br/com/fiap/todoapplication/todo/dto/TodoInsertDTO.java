@@ -13,6 +13,6 @@ public class TodoInsertDTO {
     @NotNull @NotBlank @Size(min = 1, max = 25)
     private String name;
 
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 45)
     private String description;
 }

@@ -35,12 +35,13 @@ public class Todo {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    public Todo(TodoInsertDTO todoDTO){
+    public Todo(TodoInsertDTO todoDTO) {
         this.name = todoDTO.getName();
         this.description = todoDTO.getDescription();
+        this.done = false;
     }
 
-    public Todo(TodoFindDTO todoFindDTO){
+    public Todo(TodoFindDTO todoFindDTO) {
         this.name = todoFindDTO.getName();
         this.description = todoFindDTO.getDescription();
     }

@@ -35,7 +35,7 @@ export async function create(formData) {
     }
 
     revalidatePath("/eventos")
-    return {ok: "Conta cadastrada com sucesso"}
+    return {ok: "Evento cadastrado"}
 }
 
 export async function getAll() {
@@ -45,7 +45,7 @@ export async function getAll() {
         method: "GET"
     }
 
-    const response = await fetch(deleteUrl, options)
+    const response = await fetch(getAll, options)
 
     if(!response.ok) {
         throw new Error("Failed to delete event")
