@@ -13,7 +13,7 @@ export default function NumSei() {
           className="w-60 h-60 mb-2"
         />
           <p className="text-center text-black text-xl">
-          Professor, isso foi só para implementar os conhecimentos <br/>
+          Isso foi só para implementar os conhecimentos <br/>
           de app route porque eu tava sem ideia do que colocar aqui :P
           </p>
       </div>
