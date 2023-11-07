@@ -8,7 +8,7 @@ export default function EventDataRow({evento}) {
         <CalendarDaysIcon className="h-6 w-6" />
         <span>{evento.title}</span>
       </div>
-      <span>{evento.date}</span>
+        <span>{evento.date}</span>
       <div className="text-slate-100">
         <DropMenu evento={evento}/>
       </div>

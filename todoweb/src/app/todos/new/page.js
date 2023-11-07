@@ -21,7 +21,7 @@ export default function CreateEvent() {
 
     return (
         <>
-            <Navbar active={"eventos"}/>
+            <Navbar/>
             <main className="bg-slate-900 mt-10 p-8 max-w-lg m-auto">
                 <h2 className="felx text-xl">Adicionar ToDo</h2>
 

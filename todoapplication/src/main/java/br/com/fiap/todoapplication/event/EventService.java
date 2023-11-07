@@ -19,7 +19,7 @@ public class EventService {
     EventRepository eventRepository;
 
     public List<EventFindDTO> findAllByUserId(Long userId){
-        return eventRepository.findAllByUserId(userId)
+        return eventRepository.findAllByUserIdOrderByDateAsc(userId)
                 .stream().map(this::parseEventEFDTO).collect(Collectors.toList());
     }
 
@@ -84,7 +84,7 @@ public class EventService {
     }
 
     public boolean checkIfUserHasEvent(Long userId, Long eventId) throws NoSuchObjectException {
-        List<Event> userEvents = eventRepository.findAllByUserId(userId);
+        List<Event> userEvents = eventRepository.findAllByUserIdOrderByDateAsc(userId);
         boolean hasEvent = false;
 
         if (userEvents.isEmpty())

@@ -15,7 +15,7 @@ export default function ToDo({todo}) {
     const handleDone = async () => {
       console.log(todo.id)
       await updateTodoDone(todo.id)
-      console.log("Upddated")
+      console.log("Updated")
     }
 
     function checkIfItsDone() {
